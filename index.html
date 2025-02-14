@@ -145,11 +145,14 @@
                 let heartTop = parseInt(heart.style.top) || 0;
                 heart.style.top = heartTop + 2 + "px";
                 if (heartTop > gameContainer.clientHeight - 40) {
-                    heart.remove();
                     if (Math.abs(parseInt(heart.style.left) - basketPosition) < 10) {
                         score++;
                         scoreDisplay.textContent = score;
+                        if (score >= 10) {
+                            showBouquetPage();
+                        }
                     }
+                    heart.remove();
                 } else {
                     requestAnimationFrame(fall);
                 }
