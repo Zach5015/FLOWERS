@@ -76,14 +76,12 @@
             <button class="control-btn" id="right-btn">➡️</button>
         </div>
     </div>
-
     <div id="bouquet-page">
         <h1>Congratulations! 💐</h1>
         <p>You caught all the hearts and won a bouquet of flowers!</p>
         <img src="https://i.pinimg.com/736x/44/70/dc/4470dc1295a0d09777cf66281fc5b761.jpg" alt="Bouquet of flowers">
         <p>Happy Valentine's Day! ❤️</p>
     </div>
-
     <script>
         const basket = document.getElementById("basket");
         const gameContainer = document.getElementById("game-container");
@@ -94,7 +92,6 @@
         const rightBtn = document.getElementById("right-btn");
         let score = 0;
         let basketPosition = 170;
-
         function moveBasket(direction) {
             if (direction === "left" && basketPosition > 0) {
                 basketPosition -= 20;
@@ -103,7 +100,6 @@
             }
             basket.style.left = basketPosition + "px";
         }
-
         document.addEventListener("keydown", (event) => {
             if (event.key === "ArrowLeft") {
                 moveBasket("left");
@@ -111,10 +107,8 @@
                 moveBasket("right");
             }
         });
-
         leftBtn.addEventListener("click", () => moveBasket("left"));
         rightBtn.addEventListener("click", () => moveBasket("right"));
-
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
@@ -142,7 +136,6 @@
             }, 50);
         }
         setInterval(createHeart, 1000);
-
         function showBouquetPage() {
             gamePage.style.display = "none";
             bouquetPage.style.display = "block";
