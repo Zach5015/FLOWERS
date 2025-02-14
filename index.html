@@ -15,13 +15,21 @@
             position: relative;
             width: 90vw;
             max-width: 400px;
-            height: 70vh;
-            max-height: 500px;
+            height: 50vh;
+            max-height: 350px;
             border: 2px solid red;
             margin: auto;
             overflow: hidden;
             background-color: white;
             touch-action: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #score-container {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 5px 0;
         }
         .heart {
             position: absolute;
@@ -80,9 +88,9 @@
         <h1>Catch the Hearts!</h1>
         <p>Move the basket using the buttons below.</p>
         <div id="game-container">
+            <div id="score-container">Score: <span id="score">0</span></div>
             <div id="basket"></div>
         </div>
-        <p>Score: <span id="score">0</span></p>
         <div class="controls">
             <button class="control-btn" id="left-btn">⬅️</button>
             <button class="control-btn" id="right-btn">➡️</button>
@@ -138,6 +146,10 @@
                 heart.style.top = heartTop + 2 + "px";
                 if (heartTop > gameContainer.clientHeight - 40) {
                     heart.remove();
+                    if (Math.abs(parseInt(heart.style.left) - basketPosition) < 10) {
+                        score++;
+                        scoreDisplay.textContent = score;
+                    }
                 } else {
                     requestAnimationFrame(fall);
                 }
