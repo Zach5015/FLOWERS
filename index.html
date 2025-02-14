@@ -9,17 +9,11 @@
             text-align: center;
             background-color: pink;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
         }
         #game-container {
             position: relative;
             width: 400px;
             height: 500px;
-            width: 90vw;
-            max-width: 400px;
-            height: 70vh;
-            max-height: 500px;
             border: 2px solid red;
             margin: auto;
             overflow: hidden;
@@ -29,10 +23,6 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            width: 6vw;
-            max-width: 30px;
-            height: 6vw;
-            max-height: 30px;
             background-color: red;
             clip-path: polygon(50% 0%, 100% 40%, 80% 100%, 50% 80%, 20% 100%, 0% 40%);
         }
@@ -40,15 +30,9 @@
             position: absolute;
             width: 60px;
             height: 40px;
-            width: 15vw;
-            max-width: 60px;
-            height: 10vw;
-            max-height: 40px;
             background-color: brown;
             bottom: 10px;
             left: 170px;
-            left: 50%;
-            transform: translateX(-50%);
             border-radius: 10px;
         }
         #message, #bouquet-page {
@@ -59,30 +43,17 @@
             display: flex;
             justify-content: center;
             margin-top: 20px;
-            margin-top: 10px;
         }
         .control-btn {
             width: 60px;
             height: 60px;
             margin: 0 10px;
             font-size: 24px;
-            width: 15vw;
-            max-width: 60px;
-            height: 15vw;
-            max-height: 60px;
-            margin: 0 5vw;
-            font-size: 5vw;
             background-color: red;
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-        }
-        #bouquet-page img {
-            max-width: 90%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
         }
     </style>
 </head>
@@ -103,7 +74,7 @@
     <div id="bouquet-page">
         <h1>Congratulations! 💐</h1>
         <p>You caught all the hearts and won a bouquet of flowers!</p>
-        <img src="https://i.pinimg.com/736x/44/70/dc/4470dc1295a0d09777cf66281fc5b761.jpg" alt="Bouquet of flowers">
+        <img src="https://www.pngall.com/wp-content/uploads/5/Beautiful-Flowers-Bouquet-PNG-Clipart.png" alt="Bouquet of flowers">
         <p>Happy Valentine's Day! ❤️</p>
     </div>
 
@@ -117,20 +88,14 @@
         const rightBtn = document.getElementById("right-btn");
         let score = 0;
         let basketPosition = 170;
-        let basketPosition = 50;
 
         function moveBasket(direction) {
             if (direction === "left" && basketPosition > 0) {
                 basketPosition -= 20;
             } else if (direction === "right" && basketPosition < 340) {
                 basketPosition += 20;
-            if (direction === "left" && basketPosition > 5) {
-                basketPosition -= 5;
-            } else if (direction === "right" && basketPosition < 95) {
-                basketPosition += 5;
             }
             basket.style.left = basketPosition + "px";
-            basket.style.left = basketPosition + "%";
         }
 
         document.addEventListener("keydown", (event) => {
@@ -148,19 +113,14 @@
             const heart = document.createElement("div");
             heart.classList.add("heart");
             heart.style.left = Math.random() * 370 + "px";
-            heart.style.left = Math.random() * 85 + "%";
             gameContainer.appendChild(heart);
             let heartFall = setInterval(() => {
                 let heartTop = parseInt(window.getComputedStyle(heart).getPropertyValue("top")) || 0;
                 heart.style.top = heartTop + 5 + "px";
-                heart.style.top = heartTop + 2 + "vh";
-
+                
                 if (heartTop > 460) {
-                if (heartTop > 65) {
                     let heartLeft = parseInt(window.getComputedStyle(heart).getPropertyValue("left"));
                     if (heartLeft > basketPosition && heartLeft < basketPosition + 60) {
-                    let basketLeft = parseInt(window.getComputedStyle(basket).getPropertyValue("left"));
-                    if (heartLeft > basketLeft - 10 && heartLeft < basketLeft + 10) {
                         score++;
                         scoreDisplay.textContent = score;
                         clearInterval(heartFall);
