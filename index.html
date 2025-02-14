@@ -12,10 +12,8 @@
         }
         #game-container {
             position: relative;
-            width: 90vw;
-            max-width: 400px;
-            height: 70vh;
-            max-height: 500px;
+            width: 400px;
+            height: 500px;
             border: 2px solid red;
             margin: auto;
             overflow: hidden;
@@ -23,23 +21,18 @@
         }
         .heart {
             position: absolute;
-            width: 6vw;
-            max-width: 30px;
-            height: 6vw;
-            max-height: 30px;
+            width: 30px;
+            height: 30px;
             background-color: red;
             clip-path: polygon(50% 0%, 100% 40%, 80% 100%, 50% 80%, 20% 100%, 0% 40%);
         }
         #basket {
             position: absolute;
-            width: 15vw;
-            max-width: 60px;
-            height: 10vw;
-            max-height: 40px;
+            width: 60px;
+            height: 40px;
             background-color: brown;
             bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 170px;
             border-radius: 10px;
         }
         #message, #bouquet-page {
@@ -52,12 +45,10 @@
             margin-top: 20px;
         }
         .control-btn {
-            width: 15vw;
-            max-width: 60px;
-            height: 15vw;
-            max-height: 60px;
-            margin: 0 5vw;
-            font-size: 5vw;
+            width: 60px;
+            height: 60px;
+            margin: 0 10px;
+            font-size: 24px;
             background-color: red;
             color: white;
             border: none;
@@ -65,8 +56,7 @@
             cursor: pointer;
         }
         #bouquet-page img {
-            width: 80%;
-            max-width: 300px;
+            max-width: 90%;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -103,15 +93,15 @@
         const leftBtn = document.getElementById("left-btn");
         const rightBtn = document.getElementById("right-btn");
         let score = 0;
-        let basketPosition = 50;
+        let basketPosition = 170;
 
         function moveBasket(direction) {
-            if (direction === "left" && basketPosition > 5) {
-                basketPosition -= 5;
-            } else if (direction === "right" && basketPosition < 95) {
-                basketPosition += 5;
+            if (direction === "left" && basketPosition > 0) {
+                basketPosition -= 20;
+            } else if (direction === "right" && basketPosition < 340) {
+                basketPosition += 20;
             }
-            basket.style.left = basketPosition + "%";
+            basket.style.left = basketPosition + "px";
         }
 
         document.addEventListener("keydown", (event) => {
@@ -128,16 +118,15 @@
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
-            heart.style.left = Math.random() * 85 + "%";
+            heart.style.left = Math.random() * 370 + "px";
             gameContainer.appendChild(heart);
             let heartFall = setInterval(() => {
                 let heartTop = parseInt(window.getComputedStyle(heart).getPropertyValue("top")) || 0;
-                heart.style.top = heartTop + 2 + "vh";
+                heart.style.top = heartTop + 5 + "px";
                 
-                if (heartTop > 65) {
+                if (heartTop > 460) {
                     let heartLeft = parseInt(window.getComputedStyle(heart).getPropertyValue("left"));
-                    let basketLeft = parseInt(window.getComputedStyle(basket).getPropertyValue("left"));
-                    if (heartLeft > basketLeft - 10 && heartLeft < basketLeft + 10) {
+                    if (heartLeft > basketPosition && heartLeft < basketPosition + 60) {
                         score++;
                         scoreDisplay.textContent = score;
                         clearInterval(heartFall);
