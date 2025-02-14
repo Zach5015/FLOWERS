@@ -9,6 +9,8 @@
             text-align: center;
             background-color: pink;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         #game-container {
             position: relative;
@@ -49,7 +51,7 @@
         .controls {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .control-btn {
             width: 15vw;
@@ -65,8 +67,7 @@
             cursor: pointer;
         }
         #bouquet-page img {
-            width: 80%;
-            max-width: 300px;
+            max-width: 90%;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -93,5 +94,71 @@
         <img src="https://i.pinimg.com/736x/44/70/dc/4470dc1295a0d09777cf66281fc5b761.jpg" alt="Bouquet of flowers">
         <p>Happy Valentine's Day! ❤️</p>
     </div>
+
+    <script>
+        const basket = document.getElementById("basket");
+        const gameContainer = document.getElementById("game-container");
+        const scoreDisplay = document.getElementById("score");
+        const gamePage = document.getElementById("game-page");
+        const bouquetPage = document.getElementById("bouquet-page");
+        const leftBtn = document.getElementById("left-btn");
+        const rightBtn = document.getElementById("right-btn");
+        let score = 0;
+        let basketPosition = 50;
+
+        function moveBasket(direction) {
+            if (direction === "left" && basketPosition > 5) {
+                basketPosition -= 5;
+            } else if (direction === "right" && basketPosition < 95) {
+                basketPosition += 5;
+            }
+            basket.style.left = basketPosition + "%";
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft") {
+                moveBasket("left");
+            } else if (event.key === "ArrowRight") {
+                moveBasket("right");
+            }
+        });
+
+        leftBtn.addEventListener("click", () => moveBasket("left"));
+        rightBtn.addEventListener("click", () => moveBasket("right"));
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * 85 + "%";
+            gameContainer.appendChild(heart);
+            let heartFall = setInterval(() => {
+                let heartTop = parseInt(window.getComputedStyle(heart).getPropertyValue("top")) || 0;
+                heart.style.top = heartTop + 2 + "vh";
+                
+                if (heartTop > 65) {
+                    let heartLeft = parseInt(window.getComputedStyle(heart).getPropertyValue("left"));
+                    let basketLeft = parseInt(window.getComputedStyle(basket).getPropertyValue("left"));
+                    if (heartLeft > basketLeft - 10 && heartLeft < basketLeft + 10) {
+                        score++;
+                        scoreDisplay.textContent = score;
+                        clearInterval(heartFall);
+                        heart.remove();
+                        if (score >= 10) {
+                            showBouquetPage();
+                        }
+                    } else {
+                        clearInterval(heartFall);
+                        heart.remove();
+                    }
+                }
+            }, 50);
+        }
+        setInterval(createHeart, 1000);
+
+        function showBouquetPage() {
+            gamePage.style.display = "none";
+            bouquetPage.style.display = "block";
+        }
+    </script>
 </body>
 </html>
